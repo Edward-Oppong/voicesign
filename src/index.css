@@ -1,0 +1,181 @@
+:root {
+  /* ── Core palette ── */
+  --primary-dark: #122B24;
+  --primary-mid: #1E5C45;
+  --primary-light: #34A873;
+  --primary-pale: #E6F5EE;
+
+  --accent-strong: #D1941A;
+  --accent-bright: #F5A623;
+  --accent-pale: #FDF1D0;
+
+  --text-primary: #1A2622;
+  --surface: #FAFCFB;
+
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+
+  --n2: #4B5563;
+  --n4: #9CA3AF;
+  --n5: #EAF0ED;
+
+  /* ── Learning Hub / SignBridge GH design tokens ── */
+  --forest:     #0D3B2E;
+  --emerald:    #1B6B4A;
+  --leaf:       #2E9E6B;
+  --mint:       #D4F0E3;
+  --deep-gold:  #C8860A;
+  --gold:       #F5A623;
+  --pale-gold:  #FDE68A;
+  --near-black: #0F1F1A;
+  --dark-teal:  #1E3530;
+  --mid-teal:   #4A7A68;
+  --soft-teal:  #8EB8A8;
+  --off-white:  #F7FDFB;
+  --lh-surface: #E8F5F0;
+  --white:      #ffffff;
+
+  /* Domain colors */
+  --healthcare: #E53935;
+  --civic:      #1565C0;
+  --workplace:  #00838F;
+
+  /* ── Glass & Shadows ── */
+  --glass-bg: rgba(250, 252, 251, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-dark: rgba(18, 43, 36, 0.6);
+  --shadow-soft: 0 8px 30px rgba(18, 43, 36, 0.04);
+  --shadow-float: 0 20px 40px rgba(18, 43, 36, 0.08);
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* ── Typography ── */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ── Animations ── */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background-color: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: transform 0.08s var(--ease-in-out), box-shadow 0.15s var(--ease-in-out);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* Base utility classes */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+/* App Wrapper */
+.app-container {
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--surface);
+  display: flex;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4); }
+  70% { box-shadow: 0 0 0 20px rgba(245, 166, 35, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0); }
+}
+
+@keyframes red-pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s infinite;
+}
+
+.animate-red-pulse {
+  animation: red-pulse 2s infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+
+/* Reduce Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
