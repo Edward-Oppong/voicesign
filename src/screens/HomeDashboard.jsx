@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, CaretRight, Ear, HandWaving, BookBookmark, FileText, VideoCamera, Clock, WarningCircle } from '@phosphor-icons/react';
+import { Bell, CaretRight, HandWaving, BookBookmark, FileText, VideoCamera, Clock, WarningCircle, Translate, NotePencil } from '@phosphor-icons/react';
 
 export default function HomeDashboard() {
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ export default function HomeDashboard() {
           
           {/* Card A */}
           <button 
-            onClick={() => navigate('/mode-selection')}
+            onClick={() => navigate('/live-translation?mode=speech')}
             style={{
               width: '100%',
               backgroundColor: 'white',
@@ -100,16 +100,19 @@ export default function HomeDashboard() {
               textAlign: 'left',
               boxShadow: 'var(--shadow-soft)',
               border: '1px solid var(--lh-surface)',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
             }}
+            onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = 'var(--shadow-float)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'var(--shadow-soft)'; }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20 }}>
               <div style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'var(--mint)', color: 'var(--forest)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <Ear size={24} weight="fill" />
+                <Translate size={24} weight="fill" />
               </div>
               <div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 18 : 22, margin: '0 0 4px 0' }}>Understand Speech</h3>
-                <p style={{ color: 'var(--mid-teal)', fontSize: 13, margin: 0 }}>Public addresses signed for you</p>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 18 : 22, margin: '0 0 4px 0' }}>AI Real-Time Translator</h3>
+                <p style={{ color: 'var(--mid-teal)', fontSize: 13, margin: 0 }}>Spoken translation & camera sign reader</p>
               </div>
             </div>
             <CaretRight size={22} color="var(--soft-teal)" weight="bold" />
@@ -117,7 +120,7 @@ export default function HomeDashboard() {
 
           {/* Card B */}
           <button 
-            onClick={() => navigate('/live-translation?mode=camera')}
+            onClick={() => navigate('/live-translation?mode=camera&feature=dictation')}
             style={{
               width: '100%',
               backgroundColor: 'white',
@@ -130,16 +133,19 @@ export default function HomeDashboard() {
               textAlign: 'left',
               boxShadow: 'var(--shadow-soft)',
               border: '1px solid var(--lh-surface)',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
             }}
+            onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = 'var(--shadow-float)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'var(--shadow-soft)'; }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 12 : 20 }}>
               <div style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: 'var(--pale-gold)', color: 'var(--deep-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <HandWaving size={24} weight="fill" />
+                <NotePencil size={24} weight="fill" />
               </div>
               <div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 18 : 22, margin: '0 0 4px 0' }}>Speak Through Signs</h3>
-                <p style={{ color: 'var(--mid-teal)', fontSize: 13, margin: 0 }}>Sign and be understood</p>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 18 : 22, margin: '0 0 4px 0' }}>AI Sign Dictator & Writer</h3>
+                <p style={{ color: 'var(--mid-teal)', fontSize: 13, margin: 0 }}>Draft official documents using GSL signs</p>
               </div>
             </div>
             <CaretRight size={22} color="var(--soft-teal)" weight="bold" />

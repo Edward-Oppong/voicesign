@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MagnifyingGlass, Play, Camera, X } from '@phosphor-icons/react';
+import { MagnifyingGlass, Play, Camera, X, YoutubeLogo } from '@phosphor-icons/react';
 import TopNav from '../components/TopNav';
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -37,27 +37,54 @@ function SignTile({ label, isLetter = true, onClick }) {
 }
 
 function SignModal({ label, isLetter, onClose }) {
+  // Map letters or numbers to specific timestamp start points on Ghanaian Sign Language video tutorials
+  let youtubeUrl = '';
+  if (isLetter) {
+    const lettersArr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const idx = lettersArr.indexOf(label);
+    const startSec = 10 + (idx >= 0 ? idx : 0) * 8; // A=10s, B=18s, C=26s...
+    youtubeUrl = `https://www.youtube.com/embed/VpdJEV-mP7k?start=${startSec}&autoplay=1`;
+  } else {
+    const numVal = parseInt(label, 10);
+    const startSec = 5 + (numVal ? numVal : 1) * 6; // 1=11s, 2=17s...
+    youtubeUrl = `https://www.youtube.com/embed/VpdJEV-mP7k?start=${startSec}&autoplay=1`;
+  }
+
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 200, backgroundColor: 'rgba(13,59,46,0.7)', backdropFilter: 'blur(12px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-      <div style={{ backgroundColor: 'white', borderRadius: 24, padding: 32, maxWidth: 440, width: '100%', position: 'relative', boxShadow: '0 40px 80px rgba(0,0,0,0.3)', animation: 'fade-in 0.2s ease', textAlign: 'center' }}>
-        <button onClick={onClose} style={{ position: 'absolute', top: 16, right: 16, width: 36, height: 36, borderRadius: '50%', backgroundColor: 'var(--lh-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--mid-teal)' }}>
+      <div style={{ backgroundColor: 'white', borderRadius: 24, padding: 32, maxWidth: 460, width: '100%', position: 'relative', boxShadow: '0 40px 80px rgba(0,0,0,0.3)', animation: 'fade-in 0.2s ease', textAlign: 'center' }}>
+        <button onClick={onClose} style={{ position: 'absolute', top: 16, right: 16, width: 36, height: 36, borderRadius: '50%', backgroundColor: 'var(--lh-surface)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--mid-teal)', cursor: 'pointer' }}>
           <X size={18} weight="bold" />
         </button>
         <div>
           <p style={{ fontFamily: 'var(--font-display)', fontSize: 56, color: 'var(--gold)', margin: '0 0 4px 0', lineHeight: 1 }}>{label}</p>
-          <p style={{ fontSize: 11, color: 'var(--mint)', backgroundColor: 'var(--forest)', display: 'inline-block', padding: '4px 14px', borderRadius: 20, marginBottom: 20 }}>
-            GSL Handshape for {isLetter ? `Letter "${label}"` : `Number ${label}`}
-          </p>
-          <div style={{ backgroundColor: 'var(--emerald)', borderRadius: 12, height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-            <div style={{ width: 56, height: 56, borderRadius: '50%', backgroundColor: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Play size={24} color="var(--forest)" weight="fill" />
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 20 }}>
+            <span style={{ fontSize: 11, color: 'var(--mint)', backgroundColor: 'var(--forest)', padding: '4px 14px', borderRadius: 20 }}>
+              GSL Handshape for {isLetter ? `Letter "${label}"` : `Number ${label}`}
+            </span>
+            <span style={{ backgroundColor: '#FF00001A', color: '#FF0000', fontSize: 11, fontWeight: 700, padding: '4px 12px', borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <YoutubeLogo size={14} weight="fill" /> YouTube
+            </span>
           </div>
+
+          {/* YouTube Video Iframe Embed */}
+          <div style={{ backgroundColor: 'black', borderRadius: 12, height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, overflow: 'hidden', position: 'relative' }}>
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src={youtubeUrl} 
+              title={`GSL handshape tutorial for ${label}`} 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+              style={{ border: 'none' }}
+            />
+          </div>
+
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginBottom: 20 }}>
-            <button style={{ fontSize: 13, color: 'var(--mid-teal)' }}>↺ Replay</button>
-            <button style={{ fontSize: 13, color: 'var(--mid-teal)' }}>0.5x Slow</button>
+            <span style={{ fontSize: 13, color: 'var(--mid-teal)', fontWeight: 600 }}>Ghanaian Sign Language fingerspelling tutorial</span>
           </div>
-          <button style={{ width: '100%', height: 48, borderRadius: 14, backgroundColor: 'var(--leaf)', color: 'white', fontWeight: 700, fontSize: 15, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <button style={{ border: 'none', cursor: 'pointer', width: '100%', height: 48, borderRadius: 14, backgroundColor: 'var(--leaf)', color: 'white', fontWeight: 700, fontSize: 15, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
             <Camera size={20} /> Practice with Camera
           </button>
         </div>

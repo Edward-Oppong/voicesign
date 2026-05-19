@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Fire, Play, ArrowsClockwise, Camera, Check, CaretLeft, CaretRight, Lock } from '@phosphor-icons/react';
+import { Fire, Play, ArrowsClockwise, Camera, Check, CaretLeft, CaretRight, Lock, YoutubeLogo } from '@phosphor-icons/react';
 import TopNav from '../components/TopNav';
 
 const WEEK_DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
@@ -13,12 +13,19 @@ const PREV_SIGNS = [
   { day: 'Sat', term: 'NURSE' },
 ];
 
-function VideoThumb({ height = 180, playSize = 52 }) {
+function VideoThumb({ height = 220 }) {
   return (
-    <div style={{ width: '100%', height, backgroundColor: 'var(--emerald)', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-      <div style={{ width: playSize, height: playSize, borderRadius: '50%', backgroundColor: 'var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Play size={playSize * 0.5} color="var(--forest)" weight="fill" />
-      </div>
+    <div style={{ width: '100%', height, backgroundColor: 'black', borderRadius: 14, overflow: 'hidden', position: 'relative', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)' }}>
+      <iframe 
+        width="100%" 
+        height="100%" 
+        src="https://www.youtube.com/embed/5a2305m9Ssc?start=260&autoplay=1"
+        title="GSL Diagnosis sign tutorial" 
+        frameBorder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowFullScreen
+        style={{ border: 'none' }}
+      />
     </div>
   );
 }
@@ -85,7 +92,12 @@ export default function LearnDaily() {
             <div style={{ height: 8, backgroundColor: 'var(--healthcare)', width: '100%' }} />
             <div style={{ padding: isMobile ? '24px 16px' : '40px' }}>
               <div style={{ textAlign: 'center', marginBottom: 24 }}>
-                <span style={{ backgroundColor: 'var(--healthcare)', color: 'white', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', padding: '3px 10px', borderRadius: 999 }}>Healthcare</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 12 }}>
+                  <span style={{ backgroundColor: 'var(--healthcare)', color: 'white', fontSize: 9, fontWeight: 700, textTransform: 'uppercase', padding: '3px 10px', borderRadius: 999 }}>Healthcare</span>
+                  <span style={{ backgroundColor: '#FF00001A', color: '#FF0000', fontSize: 9, fontWeight: 700, padding: '3px 10px', borderRadius: 999, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <YoutubeLogo size={12} weight="fill" /> YouTube Embed
+                  </span>
+                </div>
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: isMobile ? 36 : 52, color: 'var(--forest)', margin: '12px 0 0' }}>DIAGNOSIS</h2>
                 <p style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--mid-teal)', margin: '4px 0 24px' }}>Day 7 · Healthcare Domain</p>
               </div>
